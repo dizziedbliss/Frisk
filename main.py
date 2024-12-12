@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-token = os.getenv('token')
+token = os.getenv('TOKEN')
 
 description = '''An example bot to showcase the discord.ext.commands extension
 module.
@@ -79,4 +79,4 @@ async def _bot(ctx):
     await ctx.send('Yes, the bot is cool.')
 
 
-bot.run('token')
+bot.run(token)
