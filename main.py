@@ -18,12 +18,13 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), description="Study Buddy Bot to help you stay productive!", intents=intents)
 
-bot.add_cog(Flashcards(bot))
 
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
+    
+    await bot.load_extension('cogs.flashcards')
 
 
 bot.run(token)
