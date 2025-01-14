@@ -7,6 +7,7 @@ active_timers = {}
 class Timer(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.active_reminders = {}  # Initialize active reminders here
 
     @commands.command(name='timer', aliases=['ss', 'startsession', 'st', 'study', 'start'], help='Set a study session timer.')
     async def timer(self, ctx, minutes: int):
@@ -46,7 +47,7 @@ class Timer(commands.Cog):
             await ctx.send("Please specify a time greater than 0 minutes!")
             return
         
-        reminder_id = len(self.active_reminders) + 1
+        reminder_id = len(self.active_reminders) + 1  # Incremental ID for reminders
         self.active_reminders[reminder_id] = {
             'user_id': ctx.author.id,
             'task': task,

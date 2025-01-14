@@ -15,66 +15,56 @@ class Help(commands.Cog):
         )
         help_message.add_field(
             name="help",
-            commands="`help`, `h`",
-            value="You've just used it lol",
+            value="Commands: `help`, `h`\nDescription: You've just used it lol",
             inline=False,
         )
         help_message.add_field(
             name="add flashcards",
-            commands="`add_flashcard`, `af`, `flashit`, `addflash`, `memorize`",
-            value="Add a flashcards to memorize later",
+            value="Commands: `add_flashcard`, `af`, `flashit`, `addflash`, `memorize`\nDescription: Add flashcards to memorize later",
             inline=False,
         )
         help_message.add_field(
             name="get flashcards",
-            commands="`get_flashcards`, `flash`, `gf`, `glance`",
-            value="Get all flashcards that you've saved",
+            value="Commands: `get_flashcards`, `flash`, `gf`, `glance`\nDescription: Get all flashcards that you've saved",
             inline=False,
         )
         help_message.add_field(
             name="delete flashcards",
-            commands="`delete_flashcard`, `delete`, `df`",
-            value="Delete a flashcard from the database",
+            value="Commands: `delete_flashcard`, `delete`, `df`\nDescription: Delete a flashcard from the database",
             inline=False,
         )
         help_message.add_field(
             name="practice flashcards",
-            commands="`practice`, `p`",
-            value="Practice flashcards",
+            value="Commands: `practice`, `p`\nDescription: Practice flashcards",
             inline=False,
         )
         help_message.add_field(
             name="study timer",
-            commands="`timer`,`ss`,`startsession`, `st`, `study`, `start`",
-            value="Set a timer to study [minutes]",
+            value="Commands: `timer`, `ss`, `startsession`, `st`, `study`, `start`\nDescription: Set a timer to study [minutes]",
             inline=False,
         )
         help_message.add_field(
             name="stop timer",
-            commands="`es`, `endsession`, `stop`, `end`",
-            value="Stops the timer",
+            value="Commands: `es`, `endsession`, `stop`, `end`\nDescription: Stops the timer",
             inline=False,
         )
         help_message.add_field(
             name="remainder",
-            commands="`remindmein`, `remind`, `reminder`",
-            value="reminds you about a task in a given time [minutes]",
+            value="Commands: `remindmein`, `remind`, `reminder`\nDescription: Reminds you about a task in a given time [minutes]",
             inline=False,
         )
         help_message.add_field(
-            name = 'cancel reminder',
-            commands = '`cancelreminder`, `cr`',
-            value = 'Cancels a previously set reminder',
-            inline = False
+            name="cancel reminder",
+            value="Commands: `cancelreminder`, `cr`\nDescription: Cancels a previously set reminder",
+            inline=False,
         )
         help_message.add_field(
-            name = 'list reminders',
-            commands = '`listreminders`, `lr`',
-            value = 'Lists all currently set reminders',
-            inline = False
+            name="list reminders",
+            value="Commands: `listreminders`, `lr`\nDescription: Lists all currently set reminders",
+            inline=False,
         )
 
-        await ctx.send(help_message)
+        await ctx.send(embed=help_message)
 
 
 async def setup(bot):
