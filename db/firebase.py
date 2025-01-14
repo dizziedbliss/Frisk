@@ -4,6 +4,7 @@ import os
 import json
 from dotenv import load_dotenv
 import random
+import asyncio
 
 load_dotenv()
 
@@ -39,19 +40,28 @@ def delete_flashcard(question):
             return True
     return False
 
-def practice_flashcards():
-    """Get a random flashcard question and waits for the answer from the user"""
+async def practice_flashcards(ctx, bot):
+    """ Get a random flashcard question and wait for the answer from the user """
     flashcards = get_flashcards()
     if not flashcards:
-        print("No flashcards available.")
+        await ctx.send("No flashcards available.")  # Send message to the Discord channel
         return
     
     key = random.choice(list(flashcards.keys()))
     card = flashcards[key]
     
-    print(f"Flashcard: {card['question']}")
-    answer = input("What is the answer? ")
-    if answer == card['answer']:
-        print("Correct!")
-    else:
-        print(f"Incorrect! The answer is: {card['answer']}")
+    await ctx.send(f"Flashcard: {card['question']}")  # Send the question to the Discord channel
+    
+    def check(m):
+        # Check if the message is from the same user who triggered the command and in the same channel
+        return m.author == ctx.author and m.channel == ctx.channel
+
+    try:
+        # Wait for a response from the user
+        msg = await bot.wait_for('message', check=check, timeout=30.0)
+        if msg.content.lower() == card['answer'].lower():
+            await ctx.send("Correct!")  # Notify the user if the answer is correct
+        else:
+            await ctx.send(f"Incorrect! The answer is: {card['answer']}")  # If wrong, show the correct answer
+    except asyncio.TimeoutError:
+        await ctx.send("You took too long to answer! Try again.")  # If the user doesn't answer in time

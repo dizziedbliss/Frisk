@@ -30,8 +30,8 @@ class Flashcards(commands.Cog):
 
     @commands.command(name='practice', aliases=['p'], help='Practice flashcards')
     async def practice(self, ctx):
-        await practice_flashcards(ctx)  # Pass ctx to the practice function
-        await ctx.send("Flashcard practice session started!")
+        await practice_flashcards(ctx, self.bot)  # Pass ctx and bot to the practice_flashcards function
+
 
 async def setup(bot):
     await bot.add_cog(Flashcards(bot))
