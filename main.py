@@ -5,11 +5,15 @@ import random
 import os
 from dotenv import load_dotenv
 from firebase_admin import db
+from firebase_admin import credentials
+
 
 load_dotenv()
 token = os.getenv('TOKEN')
 
-firebase_admin.initializw=e_app(cred, {
+cred = credentials.Certificate("frisk-dizziedbliss-firebase-adminsdk-lrkge-5e2db57f8e.json")
+
+firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://frisk-dizziedbliss-default-rtdb.firebaseio.com/'
 })
 
