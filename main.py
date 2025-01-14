@@ -4,6 +4,7 @@ from discord.ext import commands
 import random
 import os
 from dotenv import load_dotenv
+import firebase_admin
 from firebase_admin import db
 from firebase_admin import credentials
 
