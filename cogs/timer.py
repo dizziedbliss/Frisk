@@ -1,8 +1,6 @@
 import asyncio
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix="!")
-
 # To track timers per user
 active_timers = {}
 
