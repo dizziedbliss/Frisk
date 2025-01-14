@@ -12,13 +12,13 @@ class Flashcards(commands.Cog):
 
     @commands.command(name='get_flashcards', aliases=['flash', 'gf', 'glance'], help='Get all flashcards from the database')
     async def get_flashcards(self, ctx):
-        flashcards = get_flashcards()  # Retrieve flashcards from DB
+        flashcards = get_flashcards()  # Retrieve all flashcards from DB
         if flashcards:  # Check if there are any flashcards
-            # Convert the dictionary to a list and get the first card
-            card = list(flashcards.values())[0]  # Get the first flashcard
-            await ctx.send(f"Flashcard: {card['question']} - {card['answer']}")
+            for key, card in flashcards.items():  # Iterate over each flashcard
+                await ctx.send(f"Flashcard: {card['question']} - {card['answer']}")
         else:
             await ctx.send('No flashcards found.')
+
 
     @commands.command(name='delete_flashcard', aliases=['delete', 'df'], help='Delete a flashcard from the database')
     async def delete_flashcard(self, ctx, question):
@@ -30,7 +30,7 @@ class Flashcards(commands.Cog):
 
     @commands.command(name='practice', aliases=['p'], help='Practice flashcards')
     async def practice(self, ctx):
-        practice_flashcards()
+        await practice_flashcards(ctx)  # Pass ctx to the practice function
         await ctx.send("Flashcard practice session started!")
 
 async def setup(bot):
