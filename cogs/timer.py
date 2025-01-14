@@ -63,7 +63,7 @@ class Timer(commands.Cog):
         if reminder:
             await reminder['ctx'].send(f"{ctx.author.mention}, time's up! Don't forget to {reminder['task']}.")
 
-    @commands.command(name='cancelreminder', aliases=['cancel', 'stopreminder'], help='Cancels your active reminder')
+    @commands.command(name='cancelreminder', aliases=['cr'], help='Cancels your active reminder')
     async def cancelreminder(self, ctx, reminder_id: int):
         if reminder_id not in self.active_reminders:
             await ctx.send(f"No active reminder found with ID {reminder_id}.")

@@ -14,7 +14,8 @@ class Flashcards(commands.Cog):
     async def get_flashcards(self, ctx):
         flashcards = get_flashcards()  # Retrieve flashcards from DB
         if flashcards:  # Check if there are any flashcards
-            card = flashcards[0]  # Get the first flashcard
+            # Convert the dictionary to a list and get the first card
+            card = list(flashcards.values())[0]  # Get the first flashcard
             await ctx.send(f"Flashcard: {card['question']} - {card['answer']}")
         else:
             await ctx.send('No flashcards found.')
