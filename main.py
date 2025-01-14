@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from db.firebase import initialize_firebase
 from cogs.flashcards import Flashcards
 import json
+import asyncio
 
 load_dotenv()
 token = os.getenv("TOKEN")
@@ -21,18 +22,19 @@ bot = commands.Bot(
     intents=intents,
 )
 
+async def load_cogs():
+    await bot.load_extension("cogs.flashcards")
+    await bot.load_extension("cogs.help")
+    await bot.load_extension("cogs.timer")
+
+async def setup_hook():
+    await load_cogs()
+
+bot.setup_hook = setup_hook
 
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user} (ID: {bot.user.id})")
     print("------")
 
-
-async def load_cogs():
-    await bot.load_extension("cogs.flashcards")
-    await bot.load_extension("cogs.help")
-
-
-if __name__ == "__main__":
-    bot.loop.run_until_complete(load_cogs())
-    bot.run(token)
+bot.run(token)
