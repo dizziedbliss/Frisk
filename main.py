@@ -34,7 +34,7 @@ async def ping(ctx):
 flashcards = ref.get()
 
 @bot.command()
-async def flash(ctx)
+async def flash(ctx):
     await ctx.send(flashcards)
 
 
