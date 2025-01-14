@@ -21,6 +21,8 @@ bot = commands.Bot(
     description="Study Buddy Bot to help you stay productive!",
     intents=intents,
 )
+bot.remove_command('help')
+
 
 async def load_cogs():
     await bot.load_extension("cogs.flashcards")
