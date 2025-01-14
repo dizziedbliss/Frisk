@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 from db.firebase import initialize_firebase
 from cogs.flashcards import Flashcards
+import json
 
 load_dotenv()
 token = os.getenv('TOKEN')
