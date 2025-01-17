@@ -1,3 +1,3 @@
 cogs = [
-    'cogs.help'
+    'cogs.help', 'cogs.music'
 ]
