@@ -248,20 +248,6 @@ class Music(commands.Cog):
             await ctx.send(embed=embed)
         else:
             await ctx.send("The queue is currently empty.")
-    
-    # @tasks.loop(seconds=30.0)
-    # async def check_vc_empty(self):
-    #     '''checks if the voice channel is empty'''
-    #     for vc in self.bot.voice_clients:
-    #         if len([member for member in vc.channel.members if not member.bot]) == 0:  # Only the bot is in the channel
-    #             await vc.disconnect()
-    #             print(f"Voice channel {vc.channel.name} is empty. Disconnecting...")
-                
-    # @check_vc_empty.before_loop
-    # async def before_check_vc_empty(self):
-    #     '''Ensure the loop starts after the bot is ready'''
-    #     await self.bot.wait_until_ready()
-        
-        
+
 def setup(bot):
     bot.add_cog(Music(bot))
