@@ -14,7 +14,7 @@ class Help(commands.Cog):
         """Displays all available commands."""
         embed = nextcord.Embed(
             title="Help Menu", 
-            description="A list of commands for Dummies", color=nextcord.Colour.red()
+            description="A list of commands for Dummies", color=red
             )
         embed.set_author(name="Frisk", url=None, icon_url=links.authorPFP)
 
@@ -35,7 +35,7 @@ class Help(commands.Cog):
         """Displays all available music commands."""
         embed = nextcord.Embed(
             title="Music Help Menu", 
-            description="A list of music commands for Dummies", color=nextcord.Colour.red()
+            description="A list of music commands for Dummies", color=red
             )
         embed.set_author(name="Frisk", url=None, icon_url=links.authorPFP)
         embed.add_field(name="Play", value="Plays a song from the given URL or Song Name or even a Playlist\n *useage*- `play [URL/Name]` or `p [URL/Name]` ", inline=False)

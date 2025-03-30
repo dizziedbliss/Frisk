@@ -1,0 +1,9 @@
+server:
+    port: 2333
+
+lavalink:
+    server:
+        password: "youshallnotpass"
+    plugins:
+        - dependency: "dev.lavalink.youtube:youtube-plugin:1.12.0"
+          snapshot: false # Set to true if you want to use a snapshot version.

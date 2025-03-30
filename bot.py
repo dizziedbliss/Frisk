@@ -1,14 +1,13 @@
 from dotenv import load_dotenv
-from nextcord.ext import commands
-import nextcord
 import os
 import config
+import wavelink
 
 load_dotenv()
 token = os.getenv("TOKEN")
 
 
-intents = nextcord.Intents.default()
+intents = 
 intents.messages = True
 intents.guilds = True
 intents.message_content = True
@@ -22,13 +21,16 @@ class Bot(commands.Bot):
                 self.load_extension(cog)
             except Exception as exc:
                 print(f'Could not load extension {cog} due to {exc.__class__.__name__}: {exc}')
-
+                
     async def on_ready(self):
         print(f'Logged on as {self.user} (ID: {self.user.id})')
-
+        await self.connect_lavalink()
+        
+    async def connect_lavalink(self):
+        node = wavelink.Node(uri="http://localhost:2333", password="youshallnotpass")
+        await wavelink.Pool.connect(client=bot, nodes=[node])
+        print("Connected to Lavalink")
 
 bot = Bot(intents=intents)
-
-# write general commands here
 
 bot.run(token)

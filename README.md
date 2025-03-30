@@ -32,8 +32,10 @@ Example: Custom commands that will judge your life choices while helping manage 
 ## ⚙️ Installation
 
 [Installation steps here]
-
-Example: Just three easy steps (and maybe some debugging adventures)
+use ```java -jar Lavalink.jar``` to start the lavalink server
+use ```source venv/bin/activate``` to activate the virtual environment
+use ```pip install -r requirements.txt``` to install the required packages
+use ```python3 bot.py``` to start the bot
 
 ## 🔧 Configuration
 
