@@ -35,10 +35,15 @@ bot.remove_command('help')
 @app.route("/github", methods=["POST"])
 def github_webhook():
     data = request.json
-    repo = data["repository"]["name"]
-    pusher = data["pusher"]["name"]
-    commit_url = data["head_commit"]["url"]  # URL to the commit
-
+    
+    
+    print("Received GitHub Webhook Data:", data)
+    
+    
+    repo = data.get("hook", {}).get("name", "Unknown Repo")
+    pusher = data.get("sender", {}).get("login", "Unknown Pusher")
+    commit_url = data.get("head_commit", {}).get("url", "No commit URL available")  # URL to the commit
+    
     # Create embedded message for Discord
     embed = discord.Embed(
         title=f"New commit to {repo}",
