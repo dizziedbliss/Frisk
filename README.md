@@ -7,15 +7,15 @@
 
 ## 📋 Table of Contents
 
--   Overview
--   Features
--   Installation
--   Configuration
--   Usage
--   Commands
--   Troubleshooting
--   Contributing
--   License
+- Overview
+- Features
+- Installation
+- Configuration
+- Usage
+- Commands
+- Troubleshooting
+- Contributing
+- License
 
 ## 🤖 Overview
 
@@ -75,8 +75,8 @@ Example: Yes, you can make it sing sea shanties. No, you probably shouldn't.
 
 ## 🔗 Links
 
--   GitHub: [@dizziedbliss](https://github.com/dizziedbliss)
--   Documentation (for serious people)
--   Support Server (for less serious people)
+- GitHub: [@dizziedbliss](https://github.com/dizziedbliss)
+- Documentation (for serious people)
+- Support Server (for less serious people)
 
 Example: Join our support server, where we discuss important matters like whether the bot prefers pizza or tacos
