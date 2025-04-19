@@ -2,9 +2,6 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
-from db.firebase import initialize_firebase
-from cogs.flashcards import Flashcards
-import json
 import asyncio
 from flask import Flask, request
 
@@ -13,7 +10,6 @@ load_dotenv()
 token = os.getenv("TOKEN")
 CHANNEL_ID = 1363086639622262984
 
-initialize_firebase()
 
 intents = discord.Intents.default()
 intents.members = True
@@ -23,21 +19,11 @@ app = Flask(__name__)
 
 bot = commands.Bot(
     command_prefix=commands.when_mentioned_or("!"),
-    description="Study Buddy Bot to help you stay productive!",
+    description="Looking for a life on Valoria",
     intents=intents,
 )
 bot.remove_command('help')
 
-
-async def load_cogs():
-    await bot.load_extension("cogs.flashcards")
-    await bot.load_extension("cogs.help")
-    await bot.load_extension("cogs.timer")
-
-async def setup_hook():
-    await load_cogs()
-
-bot.setup_hook = setup_hook
 
 @bot.event
 async def on_ready():
