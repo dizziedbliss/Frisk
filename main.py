@@ -35,28 +35,92 @@ bot.remove_command('help')
 @app.route("/github", methods=["POST"])
 def github_webhook():
     data = request.json
-    
-    
-    print("Received GitHub Webhook Data:", data)
-    
-    
-    repo = data.get("hook", {}).get("name", "Unknown Repo")
-    pusher = data.get("sender", {}).get("login", "Unknown Pusher")
-    commit_url = data.get("head_commit", {}).get("url", "No commit URL available")  # URL to the commit
-    
-    # Create embedded message for Discord
-    embed = discord.Embed(
-        title=f"New commit to {repo}",
-        description=f"**Commit by**: {pusher}",
-        color=discord.Color.blue(),
-    )
-    embed.add_field(name="Commit URL", value=f"[Click here]({commit_url})", inline=False)
-    embed.add_field(name="Repository", value=repo, inline=True)
-    embed.add_field(name="Pusher", value=pusher, inline=True)
 
-    # Send the embed message to Discord asynchronously
-    asyncio.run_coroutine_threadsafe(send_to_discord(embed), bot.loop)
-    
+    print("Received GitHub Webhook Data:", data)
+
+    # Push Event Handler
+    if "ref" in data and data["ref"].startswith("refs/heads"):
+        repo_name = data["repository"]["full_name"]
+        pusher = data["sender"]["login"]
+        commit_message = data["head_commit"]["message"]
+        commit_url = data["head_commit"]["url"]
+        commit_author = data["head_commit"]["author"]["name"]
+        
+        # Create Push Embed
+        embed = discord.Embed(
+            title=f"🚀 New Push to {repo_name}",
+            description=f"**Pushed by**: {pusher} 🚀",
+            color=discord.Color.green(),
+        )
+        embed.add_field(name="Commit Message", value=f"**{commit_message}**", inline=False)
+        embed.add_field(name="Commit URL", value=f"[Click here to view the commit]({commit_url})", inline=False)
+        embed.add_field(name="Commit Author", value=commit_author, inline=True)
+        embed.set_footer(text="Let the code flow! 🔥")
+
+        # Send the embed to Discord
+        asyncio.run_coroutine_threadsafe(send_to_discord(embed), bot.loop)
+
+    # Handle Pull Request Event
+    if "pull_request" in data:
+        pr_title = data["pull_request"]["title"]
+        pr_url = data["pull_request"]["html_url"]
+        pr_state = data["pull_request"]["state"]
+        pr_creator = data["pull_request"]["user"]["login"]
+        repo_name = data["repository"]["full_name"]
+        
+        # Create Pull Request Embed
+        embed = discord.Embed(
+            title=f"🔀 New Pull Request in {repo_name}",
+            description=f"**Created by**: {pr_creator}",
+            color=discord.Color.blue(),
+        )
+        embed.add_field(name="PR Title", value=f"**{pr_title}**", inline=False)
+        embed.add_field(name="PR URL", value=f"[Click here to view the pull request]({pr_url})", inline=False)
+        embed.add_field(name="PR State", value=f"Status: {pr_state.capitalize()}", inline=True)
+        embed.set_footer(text="Collaboration in action! 💪")
+
+        # Send the embed to Discord
+        asyncio.run_coroutine_threadsafe(send_to_discord(embed), bot.loop)
+
+    # Handle Issue Event
+    if "issue" in data:
+        issue_title = data["issue"]["title"]
+        issue_url = data["issue"]["html_url"]
+        issue_state = data["issue"]["state"]
+        issue_creator = data["issue"]["user"]["login"]
+        repo_name = data["repository"]["full_name"]
+        
+        # Create Issue Embed
+        embed = discord.Embed(
+            title=f"📝 New Issue in {repo_name}",
+            description=f"**Reported by**: {issue_creator}",
+            color=discord.Color.orange(),
+        )
+        embed.add_field(name="Issue Title", value=f"**{issue_title}**", inline=False)
+        embed.add_field(name="Issue URL", value=f"[Click here to view the issue]({issue_url})", inline=False)
+        embed.add_field(name="Issue State", value=f"Status: {issue_state.capitalize()}", inline=True)
+        embed.set_footer(text="Let's get it fixed! 🛠️")
+
+        # Send the embed to Discord
+        asyncio.run_coroutine_threadsafe(send_to_discord(embed), bot.loop)
+
+    # Handle Starred Event
+    if "starred" in data:
+        starred_by = data["starred"]["user"]["login"]
+        repo_name = data["repository"]["full_name"]
+
+        # Create Starred Embed
+        embed = discord.Embed(
+            title=f"⭐️ New Star on {repo_name}",
+            description=f"**Starred by**: {starred_by}",
+            color=discord.Color.purple(),
+        )
+        embed.add_field(name="Repository Starred", value=f"**{repo_name}** is now more famous! 🌟", inline=False)
+        embed.set_footer(text="Keep those stars coming! ✨")
+
+        # Send the embed to Discord
+        asyncio.run_coroutine_threadsafe(send_to_discord(embed), bot.loop)
+
     return "", 204
 
 # Function to send the embed to Discord
